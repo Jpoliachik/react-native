@@ -20,6 +20,7 @@
 
 @implementation RCTTextInput {
   CGSize _previousContentSize;
+  BOOL _hasInputAccesoryView;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
@@ -283,11 +284,11 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
     ) &&
     textInputView.returnKeyType == UIReturnKeyDone;
 
-  BOOL hasInputAccesoryView = textInputView.inputAccessoryView != nil;
-
-  if (hasInputAccesoryView == shouldHaveInputAccesoryView) {
+  if (_hasInputAccesoryView == shouldHaveInputAccesoryView) {
     return;
   }
+
+  _hasInputAccesoryView = shouldHaveInputAccesoryView;
 
   if (shouldHaveInputAccesoryView) {
     UIToolbar *toolbarView = [[UIToolbar alloc] init];
